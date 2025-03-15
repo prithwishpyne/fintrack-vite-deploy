@@ -1,9 +1,9 @@
 // Deployed
 
-// export const URL = "65.0.199.137";
-// export const PORT = "80";
+export const URL = "15.207.14.111";
+export const PORT = "80";
 
 // Local
 
-export const URL = "localhost";
-export const PORT = "8000";
+// export const URL = "localhost";
+// export const PORT = "8000";
