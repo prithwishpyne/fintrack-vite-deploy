@@ -8,6 +8,7 @@ import Register from "./Register";
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { setIsAuthenticated } = useOutletContext() || {};
+  const [message, setMessage] = useState("");
 
   return (
     <Container
@@ -30,9 +31,9 @@ const Auth = () => {
           </Typography>
         </div>
         {isLogin ? (
-          <Login setIsAuthenticated={setIsAuthenticated} />
+          <Login setIsAuthenticated={setIsAuthenticated} message={message} />
         ) : (
-          <Register setIsAuthenticated={setIsAuthenticated} />
+          <Register setIsLogin={setIsLogin} setMessage={setMessage} />
         )}
         <div className={styles.switchMode}>
           <Button

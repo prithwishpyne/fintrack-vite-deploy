@@ -15,7 +15,7 @@ import styles from "./Register.module.css";
 import { supabase } from "../../supabaseClient";
 import axiosInstance from "../../utils/axiosConfig";
 
-const Register = ({ setIsAuthenticated }) => {
+const Register = ({ setIsLogin, setMessage }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -57,8 +57,15 @@ const Register = ({ setIsAuthenticated }) => {
 
       console.log(data);
 
-      // Show success message and navigate to auth page for login
-      alert("Registration successful! Please login.");
+      // Clear form data and navigate to auth page for login
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setIsLogin(true);
+      setMessage("Registration successful! Please login");
       navigate("/auth");
     } catch (err) {
       setError(err.response?.data?.detail || "Registration failed");
@@ -148,7 +155,6 @@ const Register = ({ setIsAuthenticated }) => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
                     onClick={() => setShowPassword(!showPassword)}
                     edge="end"
                   >
@@ -177,7 +183,6 @@ const Register = ({ setIsAuthenticated }) => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     edge="end"
                   >

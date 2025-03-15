@@ -1,6 +1,5 @@
 .loginContainer {
   max-width: 400px;
-  /* margin: 4rem auto; */
   padding: 2rem;
   background-color: rgb(255, 255, 255, 0.8);
   border-radius: 8px;
@@ -82,4 +81,25 @@
 
 .divider::after {
   margin-left: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .loginContainer {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .form {
+    gap: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .loginContainer {
+    padding: 1rem;
+  }
+
+  .form {
+    gap: 0.6rem;
+  }
 }

@@ -134,3 +134,18 @@
 .link:hover {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 768px) {
+  .authContainer {
+    max-width: 100%;
+    margin: 4rem 1rem;
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .authContainer {
+    margin: 4rem 0.5rem;
+    padding: 1rem;
+  }
+}

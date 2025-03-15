@@ -14,8 +14,9 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Google as GoogleIcon } from "@mui/icons-material";
 import axiosInstance from "../../utils/axiosConfig";
+import axios from "axios";
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = ({ setIsAuthenticated, message }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -40,7 +41,7 @@ const Login = ({ setIsAuthenticated }) => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         "/login",
         {
           username: formData.username,
@@ -57,14 +58,14 @@ const Login = ({ setIsAuthenticated }) => {
 
       const data = response.data;
 
-      if (response.status !== 200 || !data.access_token) {
+      if (response?.status !== 200 || !data.access_token) {
         throw new Error(data.detail || "Login failed");
+      } else {
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("userName", data.name);
+        setIsAuthenticated(true);
+        navigate("/home");
       }
-
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("userName", data.name);
-      setIsAuthenticated(true);
-      navigate("/home");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -124,6 +125,7 @@ const Login = ({ setIsAuthenticated }) => {
             {error}
           </Alert>
         )}
+        {message && <Alert sx={{ mb: 1 }}>{message}</Alert>}
         <div className={styles.formGroup}>
           <TextField
             fullWidth
@@ -184,7 +186,7 @@ const Login = ({ setIsAuthenticated }) => {
         >
           {loading ? <CircularProgress size={24} color="inherit" /> : "Sign in"}
         </Button>
-        <div className={styles.divider}>OR</div>
+        <div className={styles.divider}>or</div>
         <Button
           type="button"
           onClick={handleGoogleSignIn}

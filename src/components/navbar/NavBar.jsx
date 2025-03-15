@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styles from "./NavBar.module.css";
@@ -14,7 +22,15 @@ import PixIcon from "@mui/icons-material/Pix";
 const NavBar = ({ userName, setUpdated }) => {
   const { setIsAuthenticated } = useOutletContext();
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    setShowLogoutDialog(false);
+  };
 
   const handleNameUpdate = (newName) => {
     localStorage.setItem("userName", newName);
@@ -57,11 +73,7 @@ const NavBar = ({ userName, setUpdated }) => {
           <Typography className={styles.profileText}>Profile</Typography>
         </Button>
         <Button
-          onClick={async () => {
-            await supabase.auth.signOut();
-            localStorage.removeItem("token");
-            setIsAuthenticated(false);
-          }}
+          onClick={() => setShowLogoutDialog(true)}
           sx={{
             fontSize: "16px",
             textTransform: "none",
@@ -80,6 +92,76 @@ const NavBar = ({ userName, setUpdated }) => {
         onNameChange={handleNameUpdate}
         setUpdated={setUpdated}
       />
+      <Dialog
+        open={showLogoutDialog}
+        onClose={() => setShowLogoutDialog(false)}
+        BackdropProps={{
+          style: {
+            backdropFilter: "blur(5px)",
+            backgroundColor: "rgba(0,0,0,0.4)",
+          },
+        }}
+        PaperProps={{
+          style: {
+            backgroundColor: "var(--card-bg)",
+            color: "var(--text-color)",
+            border: "1px solid var(--border-color)",
+            width: "400px",
+            padding: "8px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            color: "var(--text-color)",
+            fontWeight: "600",
+            fontSize: "22px",
+            padding: "16px 24px",
+          }}
+        >
+          Confirm Logout
+        </DialogTitle>
+        <DialogContent sx={{ padding: "16px 24px" }}>
+          <DialogContentText sx={{ color: "var(--text-color)" }}>
+            Are you sure you want to logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ padding: "16px 24px" }}>
+          <Button
+            variant="outlined"
+            onClick={() => setShowLogoutDialog(false)}
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d2d2d2",
+              color: "#4a4a4a",
+              border: "none",
+              m: 0,
+              mr: 1,
+              "&:hover": {
+                backgroundColor: "#c2c2c2",
+                // opacity: 0.8,
+              },
+            }}
+          >
+            Stay Logged In
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={handleLogout}
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              m: 0,
+              "&:hover": {
+                backgroundColor: "#0056b3",
+              },
+            }}
+          >
+            Yes, Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </nav>
   );
 };
