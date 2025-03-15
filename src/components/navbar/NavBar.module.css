@@ -1,0 +1,57 @@
+.navbar {
+  height: 3rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--navbar-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.navbarActions button {
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.themeToggle:hover {
+  background-color: var(--hover-color);
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  cursor: pointer;
+}
+
+.navbarActions {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 650px) {
+  .profileText {
+    display: none;
+  }
+
+  .logoutText {
+    display: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .navbar {
+    padding-right: 0;
+    padding-left: 0.5rem;
+  }
+
+  .navbarActions {
+    gap: 0;
+  }
+}

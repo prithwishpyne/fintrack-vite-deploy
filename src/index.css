@@ -1,0 +1,27 @@
+[data-theme="light"] {
+  --background-color: #e3d5ca;
+  --text-color: #000;
+  --navbar-bg: #e9f0ef;
+  --card-bg: #edf2f4;
+  --border-color: #ddd;
+  --hover-color: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  --background-color: #2d2d2d;
+  --text-color: #fff;
+  --navbar-bg: #000;
+  --card-bg: #1a1a1a;
+  --border-color: #444;
+  --hover-color: #555;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
