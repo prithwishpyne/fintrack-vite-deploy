@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Google as GoogleIcon } from "@mui/icons-material";
-import axiosInstance from "../../utils/axiosConfig";
 import axios from "axios";
 import * as config from "../../utils/config";
 
@@ -24,7 +23,6 @@ const Login = ({ setIsAuthenticated, message }) => {
     password: "",
   });
   const [error, setError] = useState("");
-  console.log(error);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -55,8 +53,6 @@ const Login = ({ setIsAuthenticated, message }) => {
         }
       );
 
-      console.log(response);
-
       const data = response.data;
 
       if (response?.status !== 200 || !data.access_token) {
@@ -78,35 +74,13 @@ const Login = ({ setIsAuthenticated, message }) => {
     try {
       setError("");
       setLoading(true);
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const login = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/home`,
         },
       });
-
-      console.log(data);
-
-      if (error) throw error;
-
-      // Get the user data from Supabase
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        // Send user data to our backend
-        const response = await axiosInstance.post("/oauth/google", {
-          email: user.email,
-          name: user.user_metadata?.full_name || "",
-        });
-
-        const tokenData = response.data;
-        localStorage.setItem("token", tokenData.access_token);
-        localStorage.setItem("userName", tokenData.name);
-        setIsAuthenticated(true);
-        navigate("/home");
-      }
+      console.log(login);
     } catch (err) {
       setError(err.message);
       setLoading(false);
