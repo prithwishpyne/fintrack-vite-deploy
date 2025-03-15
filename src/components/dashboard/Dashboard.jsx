@@ -3,14 +3,14 @@ import styles from "./Dashboard.module.css";
 import Transactions from "../transactions/Transactions";
 import AssetModal from "./AssetModal";
 import LiabilityModal from "./LiabilityModal";
+
 import { Button, Typography, Skeleton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import {
-  AttachMoney,
-  MoneyOff,
-  AccountBalance,
-  CreditCard,
-} from "@mui/icons-material";
+import { AccountBalance, CreditCard } from "@mui/icons-material";
+
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import TrendingDownIcon from "@mui/icons-material/TrendingDown";
+
 import axiosInstance from "../../utils/axiosConfig";
 
 const Dashboard = ({ userName }) => {
@@ -20,7 +20,7 @@ const Dashboard = ({ userName }) => {
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [monthlyData, setMonthlyData] = useState([]);
-  const [expensesByCategory, setExpensesByCategory] = useState(0);
+  const [expensesByCategory, setExpensesByCategory] = useState([]);
 
   const [assets, setAssets] = useState(0);
   const [liabilities, setLiabilities] = useState(0);
@@ -132,7 +132,7 @@ const Dashboard = ({ userName }) => {
             }}
           >
             <h3>Total Income</h3>
-            <AttachMoney
+            <TrendingUpIcon
               sx={{ color: "var(--text-color)", fontSize: "2rem" }}
             />
           </div>
@@ -161,7 +161,9 @@ const Dashboard = ({ userName }) => {
             }}
           >
             <h3>Total Expenses</h3>
-            <MoneyOff sx={{ color: "var(--text-color)", fontSize: "2rem" }} />
+            <TrendingDownIcon
+              sx={{ color: "var(--text-color)", fontSize: "2rem" }}
+            />
           </div>
           {isLoading ? (
             <Skeleton
@@ -246,12 +248,7 @@ const Dashboard = ({ userName }) => {
             >
               Income vs Expenses
             </Typography>
-            <div
-              style={{
-                width: "100%",
-                height: 300,
-              }}
-            >
+            <div style={{ width: "100%", height: 300 }}>
               <div
                 style={{
                   height: "100%",
@@ -274,12 +271,7 @@ const Dashboard = ({ userName }) => {
             >
               Expenses by Category
             </Typography>
-            <div
-              style={{
-                width: "100%",
-                height: 300,
-              }}
-            >
+            <div style={{ width: "100%", height: 300 }}>
               <div
                 style={{
                   height: "100%",
