@@ -77,6 +77,11 @@ const Dashboard = ({ userName }) => {
           </Typography>
           <div className={styles.topContainer}>
             <div className={styles.netWorth}>
+              <img
+                src="/public/net-worth.png"
+                alt="NetWorth Image"
+                style={{ height: "50px", width: "50px" }}
+              ></img>
               Net Worth:{" "}
               {netWorth.toLocaleString("en-US", {
                 minimumFractionDigits: 2,

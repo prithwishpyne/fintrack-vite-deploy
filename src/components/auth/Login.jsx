@@ -68,7 +68,7 @@ const Login = ({ setIsAuthenticated, message }) => {
         navigate("/home");
       }
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.detail || "Login failed");
     } finally {
       setLoading(false);
     }

@@ -71,7 +71,7 @@ const AppContent = () => {
   if (isLoading) {
     return (
       <div className={styles.app}>
-        <div>
+        <div className={styles.appLoading}>
           <div className={styles.loadingSpinner}></div>
           <CircularProgress />
         </div>
