@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Transactions.module.css";
 import TransactionModal from "./TransactionModal";
-import { Button, Tooltip, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axiosInstance from "../../utils/axiosConfig";
@@ -10,8 +12,8 @@ const Transactions = ({
   onTransactionUpdate,
   setTotalIncome,
   setTotalExpenses,
-  setMonthlyData,
-  setExpensesByCategory,
+  // setMonthlyData,
+  // setExpensesByCategory,
 }) => {
   const [transactions, setTransactions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +50,7 @@ const Transactions = ({
       return acc;
     }, []);
 
-    setMonthlyData(monthlyData);
+    // setMonthlyData(monthlyData);
 
     // Calculate expenses by category
     const expensesByCategory = transactions
@@ -65,7 +67,7 @@ const Transactions = ({
         return acc;
       }, []);
 
-    setExpensesByCategory(expensesByCategory);
+    // setExpensesByCategory(expensesByCategory);
   };
 
   const fetchTransactions = async () => {

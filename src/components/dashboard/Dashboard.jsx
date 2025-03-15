@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import Transactions from "../transactions/Transactions";
 import AssetModal from "./AssetModal";
 import LiabilityModal from "./LiabilityModal";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
 import { Button, Typography, Skeleton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {
@@ -25,17 +12,6 @@ import {
   CreditCard,
 } from "@mui/icons-material";
 import axiosInstance from "../../utils/axiosConfig";
-
-const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#8884D8",
-  "#82CA9D",
-  "#FFC658",
-  "#FF6B6B",
-];
 
 const Dashboard = ({ userName }) => {
   const [showAssetModal, setShowAssetModal] = useState(false);
@@ -276,52 +252,19 @@ const Dashboard = ({ userName }) => {
                 height: 300,
               }}
             >
-              {isLoading ? (
-                <Skeleton
-                  variant="rectangular"
-                  width="100%"
-                  height="100%"
-                  sx={{ borderRadius: 2 }}
-                />
-              ) : monthlyData.length > 0 ? (
-                <ResponsiveContainer>
-                  <LineChart data={monthlyData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="income"
-                      stroke="#4CAF50"
-                      strokeWidth={2}
-                      name="Income"
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="expenses"
-                      stroke="#f44336"
-                      strokeWidth={2}
-                      name="Expenses"
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              ) : (
-                <div
-                  style={{
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#000",
-                  }}
-                >
-                  <Typography sx={{ color: "var(--text-color)" }}>
-                    No transaction data available to display
-                  </Typography>
-                </div>
-              )}
+              <div
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#000",
+                }}
+              >
+                <Typography sx={{ color: "var(--text-color)" }}>
+                  No transaction data available to display
+                </Typography>
+              </div>
             </div>
           </div>
           <div className={styles.chart}>
@@ -337,52 +280,19 @@ const Dashboard = ({ userName }) => {
                 height: 300,
               }}
             >
-              {isLoading ? (
-                <Skeleton
-                  variant="rectangular"
-                  width="100%"
-                  height="100%"
-                  sx={{ borderRadius: 2 }}
-                />
-              ) : expensesByCategory.length > 0 ? (
-                <ResponsiveContainer>
-                  <PieChart>
-                    <Pie
-                      data={expensesByCategory}
-                      dataKey="amount"
-                      nameKey="category"
-                      // cx="50%"
-                      // cy="50%"
-                      outerRadius={90}
-                      fill="#8884d8"
-                      label
-                    >
-                      {expensesByCategory.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
-              ) : (
-                <div
-                  style={{
-                    height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#000",
-                  }}
-                >
-                  <Typography sx={{ color: "var(--text-color)" }}>
-                    No transaction data available to display
-                  </Typography>
-                </div>
-              )}
+              <div
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#000",
+                }}
+              >
+                <Typography sx={{ color: "var(--text-color)" }}>
+                  No transaction data available to display
+                </Typography>
+              </div>
             </div>
           </div>
         </div>

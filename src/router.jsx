@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import React, { Suspense } from "react";
-import { CircularProgress } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Home = React.lazy(() => import("./components/home/Home"));
 const Auth = React.lazy(() => import("./components/auth/Auth"));
