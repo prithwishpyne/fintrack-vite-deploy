@@ -78,7 +78,7 @@ const Dashboard = ({ userName }) => {
           <div className={styles.topContainer}>
             <div className={styles.netWorth}>
               <img
-                src="/public/net-worth.png"
+                src="/net-worth.png"
                 alt="NetWorth Image"
                 style={{ height: "50px", width: "50px" }}
               ></img>
@@ -264,7 +264,7 @@ const Dashboard = ({ userName }) => {
                 }}
               >
                 <Typography sx={{ color: "var(--text-color)" }}>
-                  No transaction data available to display
+                  Chart not available.
                 </Typography>
               </div>
             </div>
@@ -287,7 +287,7 @@ const Dashboard = ({ userName }) => {
                 }}
               >
                 <Typography sx={{ color: "var(--text-color)" }}>
-                  No transaction data available to display
+                  Chart not available.
                 </Typography>
               </div>
             </div>
