@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axiosInstance from "../../utils/axiosConfig";
+import { IconButton } from "@mui/material";
 
 const Transactions = ({
   onTransactionUpdate,
@@ -50,8 +51,9 @@ const Transactions = ({
       return acc;
     }, []);
 
-    // setMonthlyData(monthlyData);
 
+
+    // setMonthlyData(monthlyData);
     // Calculate expenses by category
     const expensesByCategory = transactions
       .filter((t) => t.transaction_type === "expense")
@@ -117,21 +119,30 @@ const Transactions = ({
       <div className={styles.transactionList}>
         <div className={styles.transactionTopContainer}>
           <h2 className={styles.recentTransactionsText}>Recent Transactions</h2>
-          <Button
+          <IconButton
             onClick={() => setIsModalOpen(true)}
             variant="contained"
-            startIcon={<AddIcon />}
+            // startIcon={<AddIcon />}
             sx={{
               textTransform: "none",
               backgroundColor: "#007bff",
               color: "#fff",
               m: 0,
+              borderRadius: "4px",
+              "&:hover": {
+                backgroundColor: "#007bff",
+              },
+              gap: "0.5rem",
             }}
           >
-            <Typography className={styles.addTransactionText}>
+            <AddIcon />
+            <Typography
+              className={styles.addTransactionText}
+              sx={{ fontSize: "0.875rem" }}
+            >
               Add New Transaction
             </Typography>
-          </Button>
+          </IconButton>
         </div>
         <div className={styles.transactionHeader}>
           <div className={styles.headerDate}>Date</div>

@@ -93,6 +93,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit }) => {
           color: "var(--text-color)",
           border: "1px solid var(--border-color)",
         }}
+        className={styles.modalContent}
       >
         <Box
           sx={{

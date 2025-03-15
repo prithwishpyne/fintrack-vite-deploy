@@ -93,8 +93,7 @@ const AppContent = () => {
         style={
           !isAuthenticated
             ? {
-                height: "100vh",
-                width: "100%",
+                minHeight: "100vh",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

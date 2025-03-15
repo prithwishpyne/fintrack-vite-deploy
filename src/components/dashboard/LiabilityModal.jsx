@@ -8,8 +8,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import styles from "../transactions/TransactionModal.module.css";
 import axiosInstance from "../../utils/axiosConfig";
+import styles from "../transactions/TransactionModal.module.css";
 
 const LIABILITY_CATEGORIES = [
   "Personal Loans",
@@ -80,6 +80,7 @@ const LiabilityModal = ({ isOpen, onClose, onSubmit }) => {
           color: "var(--text-color)",
           border: "1px solid var(--border-color)",
         }}
+        className={styles.modalContent}
       >
         <Box
           sx={{
