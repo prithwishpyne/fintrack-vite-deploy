@@ -71,7 +71,7 @@ const AppContent = () => {
   if (isLoading) {
     return (
       <div className={styles.app}>
-        <div className={styles.appLoading}>
+        <div>
           <div className={styles.loadingSpinner}></div>
           <CircularProgress />
         </div>
@@ -89,43 +89,19 @@ const AppContent = () => {
 
   return (
     <div className={styles.app}>
-      {/* {isAuthenticated && (
-        <nav className={styles.navbar}>
-          <h1 className={styles.headerText}>FinanceTrack</h1>
-          <div className={styles.navbarActions}>
-            <Button
-              onClick={() => setShowProfileModal(true)}
-              sx={{
-                fontSize: "16px",
-                textTransform: "none",
-                color: "#fff",
-                fontWeight: "500",
-              }}
-              startIcon={<AccountCircleIcon />}
-            >
-              Profile
-            </Button>
-            <Button
-              onClick={async () => {
-                await supabase.auth.signOut();
-                localStorage.removeItem("token");
-                setIsAuthenticated(false);
-              }}
-              sx={{
-                fontSize: "16px",
-                textTransform: "none",
-                color: "#fff",
-                fontWeight: "500",
-              }}
-              startIcon={<LogoutIcon />}
-            >
-              Logout
-            </Button>
-          </div>
-        </nav>
-      )} */}
-      {/* */}
-      <main>
+      <main
+        style={
+          !isAuthenticated
+            ? {
+                height: "100vh",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }
+            : {}
+        }
+      >
         <Outlet context={{ setIsAuthenticated }} />
       </main>
     </div>
