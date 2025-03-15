@@ -15,6 +15,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Google as GoogleIcon } from "@mui/icons-material";
 import axiosInstance from "../../utils/axiosConfig";
 import axios from "axios";
+import * as config from "../../utils/config";
 
 const Login = ({ setIsAuthenticated, message }) => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Login = ({ setIsAuthenticated, message }) => {
 
     try {
       const response = await axios.post(
-        "/login",
+        `http://${config.URL}:${config.PORT}/login`,
         {
           username: formData.username,
           password: formData.password,
@@ -159,7 +160,6 @@ const Login = ({ setIsAuthenticated, message }) => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
                     onClick={() => setShowPassword(!showPassword)}
                     edge="end"
                   >
