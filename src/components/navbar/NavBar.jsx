@@ -55,7 +55,7 @@ const NavBar = ({ userName, setUpdated }) => {
           onClick={toggleTheme}
           className={styles.themeToggle}
           sx={{
-            borderRadius: "50%",
+            borderRadius: "24px",
           }}
         >
           {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
