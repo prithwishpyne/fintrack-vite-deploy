@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
 import styles from "./Transactions.module.css";
 import TransactionModal from "./TransactionModal";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axiosInstance from "../../utils/axiosConfig";
 import { IconButton } from "@mui/material";
-
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@mui/material";
 const Transactions = ({
-  onTransactionUpdate,
   setTotalIncome,
   setTotalExpenses,
   // setMonthlyData,
@@ -18,6 +23,8 @@ const Transactions = ({
 }) => {
   const [transactions, setTransactions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   const calculateTransactions = (transactions) => {
     const totalIncome = transactions
@@ -54,6 +61,7 @@ const Transactions = ({
 
 
     // setMonthlyData(monthlyData);
+
     // Calculate expenses by category
     const expensesByCategory = transactions
       .filter((t) => t.transaction_type === "expense")
@@ -77,7 +85,6 @@ const Transactions = ({
       const { data } = await axiosInstance.get("/transactions/");
       setTransactions(data);
       calculateTransactions(data);
-      onTransactionUpdate(data);
     } catch (err) {
       console.error("Error:", err);
     } finally {
@@ -105,6 +112,19 @@ const Transactions = ({
     } catch (err) {
       console.error("Error:", err);
     } finally {
+    }
+  };
+
+  const handleDeleteClick = (transactionId) => {
+    setSelectedTransaction(transactionId);
+    setShowDeleteDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedTransaction) {
+      await handleDelete(selectedTransaction);
+      setShowDeleteDialog(false);
+      setSelectedTransaction(null);
     }
   };
 
@@ -180,16 +200,84 @@ const Transactions = ({
             </div>
             <div className={styles.transactionActions}>
               <Tooltip title="Remove transaction">
-                <DeleteIcon
-                  fontSize="small"
-                  sx={{ color: "var(--text-color)", cursor: "pointer" }}
-                  onClick={() => handleDelete(transaction.id)}
-                />
+                <IconButton
+                  onClick={() => handleDeleteClick(transaction.id)}
+                  aria-label="delete"
+                >
+                  <DeleteIcon
+                    sx={{ color: "var(--text-color)", cursor: "pointer" }}
+                  />
+                </IconButton>
               </Tooltip>
             </div>
           </div>
         ))}
       </div>
+      <Dialog
+        open={showDeleteDialog}
+        onClose={() => setShowDeleteDialog(false)}
+        BackdropProps={{
+          style: {
+            backdropFilter: "blur(5px)",
+            backgroundColor: "rgba(0,0,0,0.4)",
+          },
+        }}
+        PaperProps={{
+          style: {
+            backgroundColor: "var(--card-bg)",
+            color: "var(--text-color)",
+            border: "1px solid var(--border-color)",
+            padding: "8px",
+            gap: "3px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            color: "var(--text-color)",
+            fontWeight: "600",
+            fontSize: "22px",
+            padding: "16px 24px",
+          }}
+        >
+          Confirm Delete
+        </DialogTitle>
+        <DialogContent sx={{ padding: "16px 24px" }}>
+          <DialogContentText sx={{ color: "var(--text-color)" }}>
+            Are you sure you want to delete this transaction?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={() => setShowDeleteDialog(false)}
+            sx={{
+              textTransform: "none",
+              backgroundColor: "#d2d2d2",
+              color: "#4a4a4a",
+              border: "none",
+              m: 0,
+              mr: 1,
+              "&:hover": {
+                backgroundColor: "#c2c2c2",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmDelete}
+            color="error"
+            variant="contained"
+            sx={{
+              textTransform: "none",
+              m: 0,
+            }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
